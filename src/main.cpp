@@ -3,9 +3,23 @@
 #include <lua.hpp>
 #include <glm.hpp>
 #include "SDL/SDL.h"
+#include "Constants.h"
+#include "./Game.h"
 
-int main()
+int main(int argc, char *args[])
 {
-    std::cout << "Hello world!\n";
+    Game *game = new Game();
+
+    game->Initialize(WINDOW_WIDTH, WINDOW_HEIGHT);
+
+    while (game->isRunning())
+    {
+        game->ProcessInput();
+        game->Update();
+        game->Render();
+    }
+
+    game->Destory();
+
     return 0;
 }
