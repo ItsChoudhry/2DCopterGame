@@ -1,25 +1,22 @@
-#include <iostream>
-#include <functional>
-#include <lua.hpp>
-#include <glm.hpp>
-#include "SDL/SDL.h"
+
 #include "Constants.h"
-#include "./Game.h"
+#include "Game.h"
+#include <memory>
 
 int main(int argc, char *args[])
 {
-    Game *game = new Game();
+    std::unique_ptr<Game> game = std::make_unique<Game>();
 
-    game->Initialize(WINDOW_WIDTH, WINDOW_HEIGHT);
+    game->initialize(WINDOW_WIDTH, WINDOW_HEIGHT);
 
     while (game->isRunning())
     {
-        game->ProcessInput();
-        game->Update();
-        game->Render();
+        game->processInput();
+        game->update();
+        game->render();
     }
 
-    game->Destory();
+    game->destory();
 
     return 0;
 }

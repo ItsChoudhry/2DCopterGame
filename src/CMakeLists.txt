@@ -1,5 +1,18 @@
 find_package(SDL2 REQUIRED)
-include_directories(2dGameEngine ${SDL2_INCLUDE_DIRS})
+find_package(SDL2_image REQUIRED)
+find_package(SDL2_ttf REQUIRED)
+find_package(SDL2_mixer REQUIRED)
 
-add_executable(2dGameEngine main.cpp)
-target_link_libraries(2dGameEngine libraries ${SDL2_LIBRARIES})
+include_directories(${SDL2_INCLUDE_DIRS}
+                    ${SDL2_IMAGE_INCLUDE_DIRS}
+                    ${SDL2_TTF_INCLUDE_DIR}
+                    ${SDL2_MIXER_INCLUDE_DIR})
+
+set(SOURCES main.cpp Game.cpp Game.cpp Constants.h)
+
+add_executable(2dGameEngine ${SOURCES})
+target_link_libraries(2dGameEngine libraries
+                                   ${SDL2_LIBRARIES}
+                                   ${SDL2_IMAGE_INCLUDE_DIRS}
+                                   ${SDL2_TTF_INCLUDE_DIR}
+                                   ${SDL2_MIXER_INCLUDE_DIR})
