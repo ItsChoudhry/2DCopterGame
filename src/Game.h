@@ -14,6 +14,10 @@ public:
     void update();
     void render();
     void destory();
+    float projectilePosX = 0.0f;
+    float projectilePosY = 0.0f;
+    float projectileVelX = 0.5f;
+    float projectileVelY = 0.5f;
 
 private:
     SDL_Window *window;
