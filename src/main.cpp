@@ -1,6 +1,6 @@
 
-#include "Constants.h"
-#include "Game.h"
+#include "Constants.hpp"
+#include "Game.hpp"
 #include <memory>
 
 int main(int argc, char *args[])

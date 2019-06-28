@@ -3,7 +3,7 @@ find_package(SDL2_image REQUIRED)
 find_package(SDL2_ttf REQUIRED)
 find_package(SDL2_mixer REQUIRED)
 
-set(SOURCES main.cpp Game.cpp Game.cpp Constants.h)
+set(SOURCES main.cpp Game.hpp Game.cpp Constants.hpp)
 
 add_executable(2dGameEngine ${SOURCES})
 target_link_libraries(2dGameEngine libraries

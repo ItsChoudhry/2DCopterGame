@@ -1,6 +1,6 @@
 #include <iostream>
-#include "Constants.h"
-#include "Game.h"
+#include "Constants.hpp"
+#include "Game.hpp"
 
 Game::Game()
 {
@@ -79,8 +79,9 @@ void Game::update()
 
     ticksLastFrame = SDL_GetTicks();
 
-    projectilePosX += projectileVelX * deltaTime;
-    projectilePosY += projectileVelY * deltaTime;
+    projectilePos = glm::vec2(
+        projectilePos.x + projectileVel.x * deltaTime,
+        projectilePos.y + projectileVel.y * deltaTime);
 }
 void Game::render()
 {
@@ -88,8 +89,8 @@ void Game::render()
     SDL_RenderClear(renderer);
 
     SDL_Rect projectile{
-        static_cast<int>(std::round(projectilePosX)),
-        static_cast<int>(std::round(projectilePosY)),
+        static_cast<int>(std::round(projectilePos.x)),
+        static_cast<int>(std::round(projectilePos.y)),
         10,
         10};
 

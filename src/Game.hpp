@@ -3,6 +3,7 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include <SDL2/SDL_ttf.h>
+#include "../lib/glm/glm.hpp"
 
 class Game
 {
@@ -15,10 +16,9 @@ public:
     void render();
     void destory();
     int ticksLastFrame;
-    float projectilePosX = 0.0f;
-    float projectilePosY = 0.0f;
-    float projectileVelX = 20.0f;
-    float projectileVelY = 30.0f;
+
+    glm::vec2 projectilePos = glm::vec2(0.0f, 0.0f);
+    glm::vec2 projectileVel = glm::vec2(20.0f, 20.0f);
 
 private:
     SDL_Window *window;
