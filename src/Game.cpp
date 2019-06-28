@@ -70,8 +70,17 @@ void Game::processInput()
 }
 void Game::update()
 {
-    projectilePosX += projectileVelX;
-    projectilePosY += projectileVelY;
+    while (!SDL_TICKS_PASSED(SDL_GetTicks(), ticksLastFrame + FRAME_TARGET_TIME))
+        ;
+
+    float deltaTime = (SDL_GetTicks() - ticksLastFrame) / 1000.0f;
+
+    deltaTime = (deltaTime > 0.05f) ? 0.05f : deltaTime;
+
+    ticksLastFrame = SDL_GetTicks();
+
+    projectilePosX += projectileVelX * deltaTime;
+    projectilePosY += projectileVelY * deltaTime;
 }
 void Game::render()
 {
