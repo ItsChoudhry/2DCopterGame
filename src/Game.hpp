@@ -8,7 +8,6 @@
 class Game
 {
 public:
-    Game();
     bool isRunning() const;
     void initialize(int t_width, int t_height);
     void processInput();
@@ -21,7 +20,7 @@ public:
     glm::vec2 projectileVel = glm::vec2(20.0f, 20.0f);
 
 private:
-    SDL_Window *window;
-    SDL_Renderer *renderer;
-    bool m_running;
+    SDL_Window *m_window = nullptr;
+    SDL_Renderer *m_renderer = nullptr;
+    bool m_running = false;
 };
