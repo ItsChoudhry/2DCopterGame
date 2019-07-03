@@ -13,9 +13,17 @@ Entity::Entity(EntityManager &t_manager, std::string t_name)
 
 void Entity::update(float t_deltaTime)
 {
-    for (auto &&Component : m_components)
+    for (auto &&component : m_components)
     {
-        Component->update(t_deltaTime);
+        component->update(t_deltaTime);
+    }
+}
+
+void Entity::render()
+{
+    for (auto &&component : m_components)
+    {
+        component->render();
     }
 }
 

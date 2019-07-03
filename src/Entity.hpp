@@ -3,8 +3,11 @@
 #include <string>
 #include <vector>
 
-class Component;
+#include "Component.hpp"
+#include "EntityManager.hpp"
+
 class EntityManager;
+class Component;
 
 class Entity
 {

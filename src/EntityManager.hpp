@@ -10,9 +10,10 @@ private:
     std::vector<Entity *> m_entities;
 
 public:
+    void clearData();
     void update(float t_deltaTime);
     void render();
-    void hasNoEntities();
+    bool hasNoEntities();
     Entity &addEntity(std::string t_entityName);
     std::vector<Entity *> getEntities() const;
     unsigned int getEntityCount();
