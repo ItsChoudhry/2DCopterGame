@@ -24,4 +24,13 @@ public:
     void render();
     void destory();
     bool isActive() const;
+
+    template <typename T, typename... TAgrs> T &addComponent(TAgrs &&... args)
+    {
+        T *newComponent(new T(std::forward<TAgrs>(args)...));
+        newComponent->owner = this;
+        m_components.emplace_back(newComponent);
+        newComponent->initialize();
+        return *newComponent;
+    }
 };

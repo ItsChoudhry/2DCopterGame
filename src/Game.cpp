@@ -1,11 +1,14 @@
 #include "Game.hpp"
 #include "Constants.hpp"
+#include "components/TransformComponent.hpp"
 #include <iostream>
 
 EntityManager manager;
 SDL_Renderer *Game::renderer;
 
 Game::Game() { this->m_running = false; }
+
+Game::~Game() {}
 
 void Game::initialize(int t_width, int t_height)
 {
@@ -29,11 +32,19 @@ void Game::initialize(int t_width, int t_height)
         return;
     }
 
+    loadLevel(0);
     m_running = true;
     return;
 }
 
+void Game::loadLevel(int t_levelNumber)
+{
+    Entity &newEntity(manager.addEntity("projectile"));
+    newEntity.addComponent<TransformComponent>(0, 0, 20, 20, 32, 32, 1);
+}
+
 bool Game::isRunning() const { return m_running; }
+
 void Game::processInput()
 {
     SDL_Event event;
@@ -70,11 +81,20 @@ void Game::update()
     deltaTime = (deltaTime > 0.05f) ? 0.05f : deltaTime;
 
     ticksLastFrame = SDL_GetTicks();
+
+    manager.update(deltaTime);
 }
 void Game::render()
 {
     SDL_SetRenderDrawColor(renderer, 21, 21, 21, 255);
     SDL_RenderClear(renderer);
+
+    if (manager.hasNoEntities())
+    {
+        return;
+    }
+
+    manager.render();
 
     SDL_RenderPresent(renderer);
 }

@@ -1,7 +1,7 @@
 #pragma once
 
-#include "../EntityManager.hpp"
-#include "../Game.hpp"
+#include "EntityManager.hpp"
+#include "Game.hpp"
 #include <SDL2/SDL.h>
 
 class TransformComponent : public Component
@@ -36,8 +36,8 @@ public:
         SDL_Rect transformRectangle = {static_cast<int>(std::round(position.x)),
                                        static_cast<int>(std::round(position.y)), width,
                                        height};
-
-        SDL_SetRenderDrawColor(Game::renderer, 255, 255, 255, 255);
-        SDL_RenderFillRect(Game::renderer, &transformRectangle);
     };
+
+    SDL_SetRenderDrawColor(Game::renderer, 255, 255, 255, 255);
+    SDL_RenderFillRect(Game::renderer, &transformRectangle);
 };

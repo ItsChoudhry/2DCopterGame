@@ -12,6 +12,7 @@ class Game
 {
 public:
     Game();
+    ~Game();
     bool isRunning() const;
     void initialize(int t_width, int t_height);
     void processInput();
