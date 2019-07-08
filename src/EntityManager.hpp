@@ -2,6 +2,7 @@
 
 #include "Component.hpp"
 #include "Entity.hpp"
+#include <string>
 #include <vector>
 
 class EntityManager
