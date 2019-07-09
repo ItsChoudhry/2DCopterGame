@@ -25,6 +25,7 @@ public:
     void render();
     void destory();
     bool isActive() const;
+    void listAllComponents() const;
 
     template <typename T, typename... TAgrs>
     T &addComponent(TAgrs &&... args)
@@ -41,5 +42,18 @@ public:
     T *getComponent()
     {
         return static_cast<T *>(m_componentTypeMap[&typeid(T)]);
+    }
+
+    template <typename T>
+    bool hasComponent(T t_component) const
+    {
+        if (m_componentTypeMap.find(t_component) == m_componentTypeMap.end())
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
     }
 };

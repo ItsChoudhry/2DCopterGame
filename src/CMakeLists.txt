@@ -7,7 +7,7 @@ add_subdirectory(components)
 
 set(SOURCES main.cpp Game.hpp Game.cpp Constants.hpp Component.hpp Entity.hpp Entity.cpp
  EntityManager.hpp EntityManager.cpp TextureManager.hpp TextureManager.cpp
- AssetManager.hpp AssetManager.cpp)
+ AssetManager.hpp AssetManager.cpp Animation.hpp Animation.cpp)
 
 add_executable(2dGameEngine ${SOURCES} ${COMPONENT_SOURCES})
 target_link_libraries(2dGameEngine libraries

@@ -1,4 +1,5 @@
 #include "EntityManager.hpp"
+#include <iostream>
 
 void EntityManager::clearData()
 {
@@ -36,3 +37,14 @@ Entity &EntityManager::addEntity(std::string t_entityName)
 std::vector<Entity *> EntityManager::getEntities() const { return m_entities; }
 
 unsigned int EntityManager::getEntityCount() { return m_entities.size(); }
+
+void EntityManager::listAllEntities() const
+{
+    unsigned int i = 0;
+    for (auto &&entity : m_entities)
+    {
+        std::cout << "Entity[" << i << "] " << entity->name << "\n";
+        entity->listAllComponents();
+        i++;
+    }
+}

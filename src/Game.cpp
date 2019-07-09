@@ -43,13 +43,20 @@ void Game::initialize(int t_width, int t_height)
 void Game::loadLevel(int t_levelNumber)
 {
     // Add assets
-    std::string textureFilePath = "./assets/images/tank-big-right.png";
-    assetManager->addTexture("tank-image", textureFilePath.c_str());
+    assetManager->addTexture("tank-image",
+                             std::string("./assets/images/tank-big-right.png").c_str());
+    assetManager->addTexture(
+        "chopper-image",
+        std::string("./assets/images/chopper-spritesheet.png").c_str());
 
     // Add entities and components to them
-    Entity &newEntity(manager.addEntity("tank"));
-    newEntity.addComponent<TransformComponent>(0, 0, 20, 20, 32, 32, 1);
-    newEntity.addComponent<SpirteComponent>("tank-image");
+    Entity &tankEntity(manager.addEntity("tank"));
+    tankEntity.addComponent<TransformComponent>(0, 0, 20, 20, 32, 32, 1);
+    tankEntity.addComponent<SpirteComponent>("tank-image");
+
+    Entity &chopperEntity(manager.addEntity("chopper"));
+    tankEntity.addComponent<TransformComponent>(240, 106, 0, 0, 32, 32, 1);
+    tankEntity.addComponent<SpirteComponent>("chopper-image", 2, 90, true, false);
 }
 
 bool Game::isRunning() const { return m_running; }
