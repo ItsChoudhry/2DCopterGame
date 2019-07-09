@@ -1,9 +1,12 @@
 #include "Game.hpp"
+#include "AssetManager.hpp"
 #include "Constants.hpp"
+#include "components/SpirteComponent.hpp"
 #include "components/TransformComponent.hpp"
 #include <iostream>
 
 EntityManager manager;
+AssetManager *Game::assetManager = new AssetManager(&manager);
 SDL_Renderer *Game::renderer;
 
 Game::Game() { this->m_running = false; }
@@ -39,6 +42,9 @@ void Game::initialize(int t_width, int t_height)
 
 void Game::loadLevel(int t_levelNumber)
 {
+    // Add assets
+
+    // Add entities and components to them
     Entity &newEntity(manager.addEntity("projectile"));
     newEntity.addComponent<TransformComponent>(0, 0, 20, 20, 32, 32, 1);
 }

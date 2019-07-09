@@ -8,6 +8,7 @@
 #include <SDL2/SDL_image.h>
 #include <SDL2/SDL_ttf.h>
 
+class AssetManager;
 class Game
 {
 public:
@@ -21,6 +22,7 @@ public:
     void destory();
     int ticksLastFrame;
 
+    static AssetManager *assetManager;
     static SDL_Renderer *renderer;
     void loadLevel(int levelNumber);
 

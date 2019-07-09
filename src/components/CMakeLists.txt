@@ -1,2 +1,2 @@
-set(COMPONENT_SOURCES TransformComponent.hpp)
+set(COMPONENT_SOURCES TransformComponent.hpp SpirteComponent.hpp)
 
