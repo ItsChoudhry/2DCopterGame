@@ -43,10 +43,13 @@ void Game::initialize(int t_width, int t_height)
 void Game::loadLevel(int t_levelNumber)
 {
     // Add assets
+    std::string textureFilePath = "./assets/images/tank-big-right.png";
+    assetManager->addTexture("tank-image", textureFilePath.c_str());
 
     // Add entities and components to them
-    Entity &newEntity(manager.addEntity("projectile"));
+    Entity &newEntity(manager.addEntity("tank"));
     newEntity.addComponent<TransformComponent>(0, 0, 20, 20, 32, 32, 1);
+    newEntity.addComponent<SpirteComponent>("tank-image");
 }
 
 bool Game::isRunning() const { return m_running; }

@@ -30,14 +30,4 @@ public:
         position.x += velocity.x * t_deltaTime;
         position.y += velocity.y * t_deltaTime;
     }
-
-    void render() override
-    {
-        SDL_Rect transformRectangle = {static_cast<int>(std::round(position.x)),
-                                       static_cast<int>(std::round(position.y)), width,
-                                       height};
-
-        SDL_SetRenderDrawColor(Game::renderer, 255, 255, 255, 255);
-        SDL_RenderFillRect(Game::renderer, &transformRectangle);
-    };
 };

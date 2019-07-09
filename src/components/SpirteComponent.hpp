@@ -37,7 +37,7 @@ public:
         m_destinationRectangle.x = static_cast<int>(m_transform->position.x);
         m_destinationRectangle.y = static_cast<int>(m_transform->position.y);
         m_destinationRectangle.w = m_transform->width * m_transform->scale;
-        m_destinationRectangle.w = m_transform->height * m_transform->scale;
+        m_destinationRectangle.h = m_transform->height * m_transform->scale;
     }
 
     void render() override
