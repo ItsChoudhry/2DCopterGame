@@ -1,8 +1,10 @@
 #pragma once
 
+#include "../Constants.hpp"
 #include "../EntityManager.hpp"
 #include "../Game.hpp"
 #include <SDL2/SDL.h>
+#include <iostream>
 
 class TransformComponent : public Component
 {
@@ -27,7 +29,20 @@ public:
 
     void update(float t_deltaTime) override
     {
-        position.x += velocity.x * t_deltaTime;
-        position.y += velocity.y * t_deltaTime;
+        auto projectedXValue = (position.x + (velocity.x * t_deltaTime));
+        // std::cout << projectedXValue << "\n";
+
+        if (projectedXValue <= WINDOW_WIDTH - width && projectedXValue > 0)
+        {
+            position.x += velocity.x * t_deltaTime;
+        }
+
+        auto projectedYValue = (position.y + (velocity.y * t_deltaTime));
+        // std::cout << projectedYValue << "\n";
+
+        if (projectedYValue <= WINDOW_HEIGHT - height && projectedYValue > 0)
+        {
+            position.y += velocity.y * t_deltaTime;
+        }
     }
 };

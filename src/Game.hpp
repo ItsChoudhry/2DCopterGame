@@ -9,6 +9,7 @@
 #include <SDL2/SDL_ttf.h>
 
 class AssetManager;
+
 class Game
 {
 public:
@@ -24,6 +25,8 @@ public:
 
     static AssetManager *assetManager;
     static SDL_Renderer *renderer;
+    static SDL_Event event;
+
     void loadLevel(int levelNumber);
 
 private:

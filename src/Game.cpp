@@ -1,6 +1,7 @@
 #include "Game.hpp"
 #include "AssetManager.hpp"
 #include "Constants.hpp"
+#include "components/KeyboardControlComponent.hpp"
 #include "components/SpirteComponent.hpp"
 #include "components/TransformComponent.hpp"
 #include <iostream>
@@ -8,6 +9,7 @@
 EntityManager manager;
 AssetManager *Game::assetManager = new AssetManager(&manager);
 SDL_Renderer *Game::renderer;
+SDL_Event Game::event;
 
 Game::Game() { this->m_running = false; }
 
@@ -52,13 +54,15 @@ void Game::loadLevel(int t_levelNumber)
                              std::string("./assets/images/radar.png").c_str());
 
     // Add entities and components to them
+    Entity &chopperEntity(manager.addEntity("chopper"));
+    chopperEntity.addComponent<TransformComponent>(240, 106, 0, 0, 32, 32, 1);
+    chopperEntity.addComponent<SpirteComponent>("chopper-image", 2, 90, true, false);
+    chopperEntity.addComponent<KeyboardControlComponent>("up", "down", "left", "right",
+                                                         "space");
+
     Entity &tankEntity(manager.addEntity("tank"));
     tankEntity.addComponent<TransformComponent>(0, 0, 20, 20, 32, 32, 1);
     tankEntity.addComponent<SpirteComponent>("tank-image");
-
-    Entity &chopperEntity(manager.addEntity("chopper"));
-    tankEntity.addComponent<TransformComponent>(240, 106, 0, 0, 32, 32, 1);
-    tankEntity.addComponent<SpirteComponent>("chopper-image", 2, 90, true, false);
 
     Entity &radarEntity(manager.addEntity("radar"));
     radarEntity.addComponent<TransformComponent>(720, 15, 0, 0, 64, 64, 1);
@@ -69,7 +73,6 @@ bool Game::isRunning() const { return m_running; }
 
 void Game::processInput()
 {
-    SDL_Event event;
     SDL_PollEvent(&event);
 
     switch (event.type)

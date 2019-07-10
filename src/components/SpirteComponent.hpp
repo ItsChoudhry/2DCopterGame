@@ -48,13 +48,13 @@ public:
             Animation leftAnimation = Animation(2, m_numFrames, m_animationSpeed);
             Animation upAnimation = Animation(3, m_numFrames, m_animationSpeed);
 
-            m_animations.emplace("DownAnimtion", downAnimation);
-            m_animations.emplace("RightAnimtion", rightAnimation);
-            m_animations.emplace("LeftAnimtion", leftAnimation);
-            m_animations.emplace("UpAnimtion", upAnimation);
+            m_animations.emplace("DownAnimation", downAnimation);
+            m_animations.emplace("RightAnimation", rightAnimation);
+            m_animations.emplace("LeftAnimation", leftAnimation);
+            m_animations.emplace("UpAnimation", upAnimation);
 
             m_animationIndex = 0;
-            m_currentAnimationName = "DownAnimtion";
+            m_currentAnimationName = "DownAnimation";
         }
         else
         {
