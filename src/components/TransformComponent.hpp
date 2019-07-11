@@ -29,20 +29,8 @@ public:
 
     void update(float t_deltaTime) override
     {
-        auto projectedXValue = (position.x + (velocity.x * t_deltaTime));
-        // std::cout << projectedXValue << "\n";
+        position.x += velocity.x * t_deltaTime;
 
-        if (projectedXValue <= WINDOW_WIDTH - width && projectedXValue > 0)
-        {
-            position.x += velocity.x * t_deltaTime;
-        }
-
-        auto projectedYValue = (position.y + (velocity.y * t_deltaTime));
-        // std::cout << projectedYValue << "\n";
-
-        if (projectedYValue <= WINDOW_HEIGHT - height && projectedYValue > 0)
-        {
-            position.y += velocity.y * t_deltaTime;
-        }
+        position.y += velocity.y * t_deltaTime;
     }
 };
