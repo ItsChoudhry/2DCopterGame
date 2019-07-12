@@ -35,7 +35,8 @@ public:
 
     void update(float t_deltaTime) override
     {
-        // TODO
+        m_destinationRect.x = m_position.x - Game::camera.x;
+        m_destinationRect.y = m_position.y - Game::camera.y;
     }
 
     void render() override

@@ -100,8 +100,10 @@ public:
         }
         m_sourceRectangle.y = m_animationIndex * m_transform->height;
 
-        m_destinationRectangle.x = static_cast<int>(m_transform->position.x);
-        m_destinationRectangle.y = static_cast<int>(m_transform->position.y);
+        m_destinationRectangle.x = static_cast<int>(m_transform->position.x) -
+                                   (m_isFixed ? 0 : Game::camera.x);
+        m_destinationRectangle.y = static_cast<int>(m_transform->position.y) -
+                                   (m_isFixed ? 0 : Game::camera.y);
         m_destinationRectangle.w = m_transform->width * m_transform->scale;
         m_destinationRectangle.h = m_transform->height * m_transform->scale;
     }

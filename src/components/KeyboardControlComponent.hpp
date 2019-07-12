@@ -59,26 +59,26 @@ public:
 
             if (keyCode.compare(upKey) == 0)
             {
-                m_transform->velocity.y = -25;
+                m_transform->velocity.y = -50;
                 m_transform->velocity.x = 0;
                 m_spirte->play("UpAnimation");
             }
             if (keyCode.compare(downKey) == 0)
             {
-                m_transform->velocity.y = 25;
+                m_transform->velocity.y = 50;
                 m_transform->velocity.x = 0;
                 m_spirte->play("DownAnimation");
             }
             if (keyCode.compare(leftKey) == 0)
             {
                 m_transform->velocity.y = 0;
-                m_transform->velocity.x = -25;
+                m_transform->velocity.x = -50;
                 m_spirte->play("LeftAnimation");
             }
             if (keyCode.compare(rightKey) == 0)
             {
                 m_transform->velocity.y = 0;
-                m_transform->velocity.x = 25;
+                m_transform->velocity.x = 50;
                 m_spirte->play("RightAnimation");
             }
             if (keyCode.compare(shootKey) == 0)

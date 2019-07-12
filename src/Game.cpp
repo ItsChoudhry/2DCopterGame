@@ -11,6 +11,7 @@ EntityManager manager;
 AssetManager *Game::assetManager = new AssetManager(&manager);
 SDL_Renderer *Game::renderer;
 SDL_Event Game::event;
+SDL_Rect Game::camera = {0, 0, WINDOW_WIDTH, WINDOW_HEIGHT};
 Map *map;
 
 Game::Game() { this->m_running = false; }
@@ -44,6 +45,7 @@ void Game::initialize(int t_width, int t_height)
     return;
 }
 
+Entity &playerEntity(manager.addEntity("chopper", PLAYER_LAYER));
 void Game::loadLevel(int t_levelNumber)
 {
     // Add assets
@@ -61,14 +63,13 @@ void Game::loadLevel(int t_levelNumber)
     map->loadMap("./assets/tilemaps/jungle.map", 25, 20);
 
     // Add entities and components to them
-    Entity &chopperEntity(manager.addEntity("chopper", PLAYER_LAYER));
-    chopperEntity.addComponent<TransformComponent>(240, 106, 0, 0, 32, 32, 1);
-    chopperEntity.addComponent<SpirteComponent>("chopper-image", 2, 90, true, false);
-    chopperEntity.addComponent<KeyboardControlComponent>("up", "down", "left", "right",
-                                                         "space");
+    playerEntity.addComponent<TransformComponent>(240, 106, 0, 0, 32, 32, 1);
+    playerEntity.addComponent<SpirteComponent>("chopper-image", 2, 90, true, false);
+    playerEntity.addComponent<KeyboardControlComponent>("up", "down", "left", "right",
+                                                        "space");
 
     Entity &tankEntity(manager.addEntity("tank", ENEMY_LAYER));
-    tankEntity.addComponent<TransformComponent>(0, 0, 20, 20, 32, 32, 1);
+    tankEntity.addComponent<TransformComponent>(150, 500, 20, 20, 32, 32, 1);
     tankEntity.addComponent<SpirteComponent>("tank-image");
 
     Entity &radarEntity(manager.addEntity("radar", UI_LAYER));
@@ -115,7 +116,23 @@ void Game::update()
     ticksLastFrame = SDL_GetTicks();
 
     manager.update(deltaTime);
+
+    handleCameraMovement();
 }
+
+void Game::handleCameraMovement()
+{
+    TransformComponent *mainPlayerTransform =
+        playerEntity.getComponent<TransformComponent>();
+    camera.x = mainPlayerTransform->position.x - (WINDOW_WIDTH / 2);
+    camera.y = mainPlayerTransform->position.y - (WINDOW_HEIGHT / 2);
+
+    camera.x = camera.x < 0 ? 0 : camera.x;
+    camera.y = camera.y < 0 ? 0 : camera.y;
+    camera.x = camera.x > camera.w ? camera.w : camera.x;
+    camera.y = camera.y > camera.h ? camera.h : camera.y;
+}
+
 void Game::render()
 {
     SDL_SetRenderDrawColor(renderer, 21, 21, 21, 255);

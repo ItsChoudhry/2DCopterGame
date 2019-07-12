@@ -22,12 +22,13 @@ public:
     void render();
     void destory();
     int ticksLastFrame;
-
+    static SDL_Rect camera;
     static AssetManager *assetManager;
     static SDL_Renderer *renderer;
     static SDL_Event event;
 
     void loadLevel(int levelNumber);
+    void handleCameraMovement();
 
 private:
     SDL_Window *m_window = nullptr;
