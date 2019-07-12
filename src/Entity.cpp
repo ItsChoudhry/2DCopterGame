@@ -6,8 +6,8 @@ Entity::Entity(EntityManager &t_manager) : m_manager(t_manager)
     this->m_active = true;
 }
 
-Entity::Entity(EntityManager &t_manager, std::string t_name)
-    : m_manager(t_manager), name(t_name)
+Entity::Entity(EntityManager &t_manager, std::string t_name, LayerType t_layer)
+    : m_manager(t_manager), name(t_name), layer(t_layer)
 {
     this->m_active = true;
 }

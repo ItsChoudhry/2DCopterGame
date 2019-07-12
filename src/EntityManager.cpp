@@ -21,15 +21,18 @@ void EntityManager::update(float t_deltaTime)
 
 void EntityManager::render()
 {
-    for (auto &&entity : m_entities)
+    for (int layerNum = 0; layerNum < NUM_LAYERS; layerNum++)
     {
-        entity->render();
+        for (auto &&entity : getEntitiesByLayer(static_cast<LayerType>(layerNum)))
+        {
+            entity->render();
+        }
     }
 }
 
-Entity &EntityManager::addEntity(std::string t_entityName)
+Entity &EntityManager::addEntity(std::string t_entityName, LayerType t_layer)
 {
-    Entity *entity = new Entity(*this, t_entityName);
+    Entity *entity = new Entity(*this, t_entityName, t_layer);
     m_entities.emplace_back(entity);
     return *entity;
 }
@@ -47,4 +50,17 @@ void EntityManager::listAllEntities() const
         entity->listAllComponents();
         i++;
     }
+}
+
+std::vector<Entity *> EntityManager::getEntitiesByLayer(LayerType t_layer) const
+{
+    std::vector<Entity *> selectedEntities;
+    for (auto &&entity : m_entities)
+    {
+        if (entity->layer == t_layer)
+        {
+            selectedEntities.emplace_back(entity);
+        }
+    }
+    return selectedEntities;
 }

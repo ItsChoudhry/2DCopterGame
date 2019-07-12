@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Component.hpp"
+#include "Constants.hpp"
 #include "EntityManager.hpp"
 #include <map>
 #include <string>
@@ -19,8 +20,9 @@ private:
 
 public:
     std::string name;
+    LayerType layer;
     Entity(EntityManager &t_manager);
-    Entity(EntityManager &t_manager, std::string t_name);
+    Entity(EntityManager &t_manager, std::string t_name, LayerType t_layer);
     void update(float t_deltaTime);
     void render();
     void destory();
