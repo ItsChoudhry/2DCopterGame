@@ -57,7 +57,7 @@ void Game::loadLevel(int t_levelNumber)
     assetManager->addTexture("jungle-tiletexture",
                              std::string("./assets/tilemaps/jungle.png").c_str());
 
-    map = new Map("jungle-tiletexture", 1, 32);
+    map = new Map("jungle-tiletexture", 2, 32);
     map->loadMap("./assets/tilemaps/jungle.map", 25, 20);
 
     // Add entities and components to them
