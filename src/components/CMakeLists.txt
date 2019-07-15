@@ -1,3 +1,2 @@
-set(COMPONENT_SOURCES TransformComponent.hpp SpirteComponent.hpp 
-                      KeyboardControlComponent.hpp TileComponent.hpp)
-
+file(GLOB comp_files ./*.hpp)
+set(COMPONENT_SOURCES ${comp_files})
