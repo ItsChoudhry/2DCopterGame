@@ -1,4 +1,6 @@
 #include "EntityManager.hpp"
+#include "Collision.hpp"
+#include "components/ColliderComponent.hpp"
 #include <iostream>
 
 void EntityManager::clearData()
@@ -63,4 +65,27 @@ std::vector<Entity *> EntityManager::getEntitiesByLayer(LayerType t_layer) const
         }
     }
     return selectedEntities;
+}
+
+std::string EntityManager::checkEntityCollisions(Entity &t_entity) const
+{
+    ColliderComponent *myCollider = t_entity.getComponent<ColliderComponent>();
+    for (auto &&entity : m_entities)
+    {
+        if (entity->name.compare(t_entity.name) != 0 &&
+            entity->name.compare("Tile") != 0)
+        {
+            if (entity->hasComponent<ColliderComponent>())
+            {
+                ColliderComponent *otherCollider =
+                    entity->getComponent<ColliderComponent>();
+                if (Collision::checkRectCollision(myCollider->colliderRect,
+                                                  otherCollider->colliderRect))
+                {
+                    return otherCollider->colliderTag;
+                }
+            }
+        }
+    }
+    return std::string();
 }

@@ -29,6 +29,7 @@ public:
 
     void loadLevel(int levelNumber);
     void handleCameraMovement();
+    void checkCollisions();
 
 private:
     SDL_Window *m_window = nullptr;

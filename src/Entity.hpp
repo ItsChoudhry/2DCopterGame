@@ -47,15 +47,8 @@ public:
     }
 
     template <typename T>
-    bool hasComponent(T t_component) const
+    bool hasComponent() const
     {
-        if (m_componentTypeMap.find(t_component) == m_componentTypeMap.end())
-        {
-            return false;
-        }
-        else
-        {
-            return true;
-        }
+        return m_componentTypeMap.count(&typeid(T));
     }
 };

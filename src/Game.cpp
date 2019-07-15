@@ -2,6 +2,7 @@
 #include "AssetManager.hpp"
 #include "Constants.hpp"
 #include "Map.hpp"
+#include "components/ColliderComponent.hpp"
 #include "components/KeyboardControlComponent.hpp"
 #include "components/SpirteComponent.hpp"
 #include "components/TransformComponent.hpp"
@@ -67,10 +68,12 @@ void Game::loadLevel(int t_levelNumber)
     playerEntity.addComponent<SpirteComponent>("chopper-image", 2, 90, true, false);
     playerEntity.addComponent<KeyboardControlComponent>("up", "down", "left", "right",
                                                         "space");
+    playerEntity.addComponent<ColliderComponent>("player", 240, 106, 32, 32);
 
     Entity &tankEntity(manager.addEntity("tank", ENEMY_LAYER));
     tankEntity.addComponent<TransformComponent>(150, 500, 20, 20, 32, 32, 1);
     tankEntity.addComponent<SpirteComponent>("tank-image");
+    tankEntity.addComponent<ColliderComponent>("enemy", 150, 500, 32, 32);
 
     Entity &radarEntity(manager.addEntity("radar", UI_LAYER));
     radarEntity.addComponent<TransformComponent>(720, 15, 0, 0, 64, 64, 1);
@@ -118,8 +121,18 @@ void Game::update()
     manager.update(deltaTime);
 
     handleCameraMovement();
+    checkCollisions();
 }
 
+void Game::checkCollisions()
+{
+    std::string collisonTagType = manager.checkEntityCollisions(playerEntity);
+    if (collisonTagType.compare("enemy") == 0)
+    {
+        // TODO
+        m_running = false;
+    }
+}
 void Game::handleCameraMovement()
 {
     TransformComponent *mainPlayerTransform =
