@@ -30,6 +30,8 @@ public:
     void loadLevel(int levelNumber);
     void handleCameraMovement();
     void checkCollisions();
+    void processGameOver();
+    void processNextLevel(int t_levelNumber);
 
 private:
     SDL_Window *m_window = nullptr;

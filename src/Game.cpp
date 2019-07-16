@@ -59,7 +59,8 @@ void Game::loadLevel(int t_levelNumber)
                              std::string("./assets/images/radar.png").c_str());
     assetManager->addTexture("jungle-tiletexture",
                              std::string("./assets/tilemaps/jungle.png").c_str());
-
+    assetManager->addTexture("helipad-image",
+                             std::string("./assets/images/heliport.png").c_str());
     map = new Map("jungle-tiletexture", 2, 32);
     map->loadMap("./assets/tilemaps/jungle.map", 25, 20);
 
@@ -71,13 +72,18 @@ void Game::loadLevel(int t_levelNumber)
     playerEntity.addComponent<ColliderComponent>("player", 240, 106, 32, 32);
 
     Entity &tankEntity(manager.addEntity("tank", ENEMY_LAYER));
-    tankEntity.addComponent<TransformComponent>(150, 500, 20, 20, 32, 32, 1);
+    tankEntity.addComponent<TransformComponent>(150, 500, 20, 0, 32, 32, 1);
     tankEntity.addComponent<SpirteComponent>("tank-image");
     tankEntity.addComponent<ColliderComponent>("enemy", 150, 500, 32, 32);
 
     Entity &radarEntity(manager.addEntity("radar", UI_LAYER));
     radarEntity.addComponent<TransformComponent>(720, 15, 0, 0, 64, 64, 1);
     radarEntity.addComponent<SpirteComponent>("radar-image", 8, 150, false, true);
+
+    Entity &helipadEntity(manager.addEntity("helipad", OBSTACLE_LAYER));
+    helipadEntity.addComponent<TransformComponent>(470, 420, 0, 0, 32, 32, 1);
+    helipadEntity.addComponent<SpirteComponent>("helipad-image");
+    helipadEntity.addComponent<ColliderComponent>("level_complete", 470, 420, 32, 32);
 }
 
 bool Game::isRunning() const { return m_running; }
@@ -126,13 +132,29 @@ void Game::update()
 
 void Game::checkCollisions()
 {
-    std::string collisonTagType = manager.checkEntityCollisions(playerEntity);
-    if (collisonTagType.compare("enemy") == 0)
+    CollisionType collisionType = manager.checkCollisions();
+    if (collisionType == PLAYER_ENEMY_COLLISION)
     {
-        // TODO
-        m_running = false;
+        processGameOver();
+    }
+    if (collisionType == PLAYER_LEVEL_COMPLETE_COLLISION)
+    {
+        processNextLevel(1);
     }
 }
+
+void Game::processGameOver()
+{
+    std::cout << "Game over";
+    m_running = false;
+}
+
+void Game::processNextLevel(int t_levelNumber)
+{
+    std::cout << "Next level";
+    m_running = false;
+}
+
 void Game::handleCameraMovement()
 {
     TransformComponent *mainPlayerTransform =
