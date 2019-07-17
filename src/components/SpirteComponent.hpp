@@ -5,6 +5,7 @@
 #include "../TextureManager.hpp"
 #include "TransformComponent.hpp"
 #include <SDL2/SDL.h>
+#include <iostream>
 #include <map>
 #include <string>
 
