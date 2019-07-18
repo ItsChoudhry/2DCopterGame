@@ -1,2 +1,2 @@
-add_library(libraries INTERFACE)
-target_include_directories(libraries INTERFACE glm/)
+add_library(glmlib INTERFACE)
+target_include_directories(glmlib INTERFACE glm/)
