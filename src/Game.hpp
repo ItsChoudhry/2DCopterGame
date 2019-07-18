@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../lib/glm/glm.hpp"
+#include "../lib/lua/sol.hpp"
 #include "Component.hpp"
 #include "Entity.hpp"
 #include "EntityManager.hpp"
