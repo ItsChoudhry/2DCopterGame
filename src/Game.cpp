@@ -4,6 +4,7 @@
 #include "Map.hpp"
 #include "components/ColliderComponent.hpp"
 #include "components/KeyboardControlComponent.hpp"
+#include "components/ProjectileEmitterComponent.hpp"
 #include "components/SpirteComponent.hpp"
 #include "components/TextLabelComponent.hpp"
 #include "components/TransformComponent.hpp"
@@ -68,6 +69,8 @@ void Game::loadLevel(int t_levelNumber)
                              std::string("./assets/images/heliport.png").c_str());
     assetManager->addFont("charriot-font",
                           std::string("./assets/fonts/charriot.ttf").c_str(), 14);
+    assetManager->addTexture("projectile-image",
+                             std::string("./assets/images/bullet-enemy.png").c_str());
 
     map = new Map("jungle-tiletexture", 2, 32);
     map->loadMap("./assets/tilemaps/jungle.map", 25, 20);
@@ -80,9 +83,17 @@ void Game::loadLevel(int t_levelNumber)
     playerEntity.addComponent<ColliderComponent>("player", 240, 106, 32, 32);
 
     Entity &tankEntity(manager.addEntity("tank", ENEMY_LAYER));
-    tankEntity.addComponent<TransformComponent>(150, 500, 20, 0, 32, 32, 1);
+    tankEntity.addComponent<TransformComponent>(150, 500, 0, 0, 32, 32, 1);
     tankEntity.addComponent<SpirteComponent>("tank-image");
     tankEntity.addComponent<ColliderComponent>("enemy", 150, 500, 32, 32);
+
+    Entity &projectileEntity(manager.addEntity("projectile", PROJECTILE_LAYER));
+    projectileEntity.addComponent<TransformComponent>(150 + 16, 500 + 16, 0, 0, 4, 4,
+                                                      1);
+    projectileEntity.addComponent<SpirteComponent>("projectile-image");
+    projectileEntity.addComponent<ColliderComponent>("projectile", 150 + 16, 500 + 16,
+                                                     4, 4);
+    projectileEntity.addComponent<ProjectileEmitterComponent>(50, 270, 200, true);
 
     Entity &helipadEntity(manager.addEntity("helipad", OBSTACLE_LAYER));
     helipadEntity.addComponent<TransformComponent>(470, 420, 0, 0, 32, 32, 1);
@@ -146,6 +157,10 @@ void Game::checkCollisions()
 {
     CollisionType collisionType = manager.checkCollisions();
     if (collisionType == PLAYER_ENEMY_COLLISION)
+    {
+        processGameOver();
+    }
+    if (collisionType == PLAYER_PROJECTILE_COLLISION)
     {
         processGameOver();
     }

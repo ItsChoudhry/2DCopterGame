@@ -30,6 +30,18 @@ void EntityManager::render()
             entity->render();
         }
     }
+    destoryInactiveEntities();
+}
+
+void EntityManager::destoryInactiveEntities()
+{
+    for (int i = 0; i < m_entities.size(); i++)
+    {
+        if (!m_entities[i]->isActive())
+        {
+            m_entities.erase(m_entities.begin() + i);
+        }
+    }
 }
 
 Entity &EntityManager::addEntity(std::string t_entityName, LayerType t_layer)
