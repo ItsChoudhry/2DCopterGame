@@ -16,6 +16,7 @@ AssetManager *Game::assetManager = new AssetManager(&manager);
 SDL_Renderer *Game::renderer;
 SDL_Event Game::event;
 SDL_Rect Game::camera = {0, 0, WINDOW_WIDTH, WINDOW_HEIGHT};
+Entity *mainPlayer = nullptr;
 Map *map;
 
 Game::Game() { this->m_running = false; }
@@ -47,66 +48,50 @@ void Game::initialize(int t_width, int t_height)
         return;
     }
 
-    loadLevel(0);
+    loadLevel(1);
     m_running = true;
     return;
 }
 
-Entity &playerEntity(manager.addEntity("chopper", PLAYER_LAYER));
 void Game::loadLevel(int t_levelNumber)
 {
-    // Add assets
-    assetManager->addTexture("tank-image",
-                             std::string("./assets/images/tank-big-right.png").c_str());
-    assetManager->addTexture(
-        "chopper-image",
-        std::string("./assets/images/chopper-spritesheet.png").c_str());
-    assetManager->addTexture("radar-image",
-                             std::string("./assets/images/radar.png").c_str());
-    assetManager->addTexture("jungle-tiletexture",
-                             std::string("./assets/tilemaps/jungle.png").c_str());
-    assetManager->addTexture("helipad-image",
-                             std::string("./assets/images/heliport.png").c_str());
-    assetManager->addFont("charriot-font",
-                          std::string("./assets/fonts/charriot.ttf").c_str(), 14);
-    assetManager->addTexture("projectile-image",
-                             std::string("./assets/images/bullet-enemy.png").c_str());
+    sol::state lua;
+    lua.open_libraries(sol::lib::base, sol::lib::os, sol::lib::math);
+    std::string levelName = "Level" + std::to_string(t_levelNumber);
+    lua.script_file("./assets/scripts/" + levelName + ".lua");
 
-    map = new Map("jungle-tiletexture", 2, 32);
-    map->loadMap("./assets/tilemaps/jungle.map", 25, 20);
+    sol::table levelData = lua[levelName];
+    sol::table levelAssets = levelData["assets"];
 
-    // Add entities and components to them
-    playerEntity.addComponent<TransformComponent>(240, 106, 0, 0, 32, 32, 1);
-    playerEntity.addComponent<SpirteComponent>("chopper-image", 2, 90, true, false);
-    playerEntity.addComponent<KeyboardControlComponent>("up", "down", "left", "right",
-                                                        "space");
-    playerEntity.addComponent<ColliderComponent>("player", 240, 106, 32, 32);
+    unsigned int assetIndex = 0;
+    while (true)
+    {
+        sol::optional<sol::table> existsAssetIndexNode = levelAssets[assetIndex];
+        if (existsAssetIndexNode == sol::nullopt)
+        {
+            break;
+        }
+        else
+        {
+            sol::table asset = levelAssets[assetIndex];
+            std::string assetType = asset["type"];
+            if (assetType.compare("texture") == 0)
+            {
+                std::string assetID = asset["id"];
+                std::string assetFile = asset["file"];
+                assetManager->addTexture(assetID, assetFile.c_str());
+            }
+        }
+        assetIndex++;
+    }
 
-    Entity &tankEntity(manager.addEntity("tank", ENEMY_LAYER));
-    tankEntity.addComponent<TransformComponent>(150, 500, 0, 0, 32, 32, 1);
-    tankEntity.addComponent<SpirteComponent>("tank-image");
-    tankEntity.addComponent<ColliderComponent>("enemy", 150, 500, 32, 32);
+    sol::table levelMap = levelData["map"];
+    std::string mapTextureid = levelMap["textureAssetId"];
+    std::string mapFile = levelMap["file"];
+    map = new Map(mapTextureid, static_cast<int>(levelMap["scale"]),
+                  static_cast<int>(levelMap["tileSize"]));
 
-    Entity &projectileEntity(manager.addEntity("projectile", PROJECTILE_LAYER));
-    projectileEntity.addComponent<TransformComponent>(150 + 16, 500 + 16, 0, 0, 4, 4,
-                                                      1);
-    projectileEntity.addComponent<SpirteComponent>("projectile-image");
-    projectileEntity.addComponent<ColliderComponent>("projectile", 150 + 16, 500 + 16,
-                                                     4, 4);
-    projectileEntity.addComponent<ProjectileEmitterComponent>(50, 270, 200, true);
-
-    Entity &helipadEntity(manager.addEntity("helipad", OBSTACLE_LAYER));
-    helipadEntity.addComponent<TransformComponent>(470, 420, 0, 0, 32, 32, 1);
-    helipadEntity.addComponent<SpirteComponent>("helipad-image");
-    helipadEntity.addComponent<ColliderComponent>("level_complete", 470, 420, 32, 32);
-
-    Entity &radarEntity(manager.addEntity("radar", UI_LAYER));
-    radarEntity.addComponent<TransformComponent>(720, 15, 0, 0, 64, 64, 1);
-    radarEntity.addComponent<SpirteComponent>("radar-image", 8, 150, false, true);
-
-    Entity &labelLevelName(manager.addEntity("LabelLevelName", UI_LAYER));
-    labelLevelName.addComponent<TextLabelComponent>(10, 10, "First Level...",
-                                                    "charriot-font", WHITE_COLOR);
+    map->loadMap(mapFile, levelMap["mapSizeX"], levelMap["mapSizeY"]);
 }
 
 bool Game::isRunning() const { return m_running; }
@@ -184,15 +169,18 @@ void Game::processNextLevel(int t_levelNumber)
 
 void Game::handleCameraMovement()
 {
-    TransformComponent *mainPlayerTransform =
-        playerEntity.getComponent<TransformComponent>();
-    camera.x = mainPlayerTransform->position.x - (WINDOW_WIDTH / 2);
-    camera.y = mainPlayerTransform->position.y - (WINDOW_HEIGHT / 2);
+    if (mainPlayer)
+    {
+        TransformComponent *mainPlayerTransform =
+            mainPlayer->getComponent<TransformComponent>();
+        camera.x = mainPlayerTransform->position.x - (WINDOW_WIDTH / 2);
+        camera.y = mainPlayerTransform->position.y - (WINDOW_HEIGHT / 2);
 
-    camera.x = camera.x < 0 ? 0 : camera.x;
-    camera.y = camera.y < 0 ? 0 : camera.y;
-    camera.x = camera.x > camera.w ? camera.w : camera.x;
-    camera.y = camera.y > camera.h ? camera.h : camera.y;
+        camera.x = camera.x < 0 ? 0 : camera.x;
+        camera.y = camera.y < 0 ? 0 : camera.y;
+        camera.x = camera.x > camera.w ? camera.w : camera.x;
+        camera.y = camera.y > camera.h ? camera.h : camera.y;
+    }
 }
 
 void Game::render()

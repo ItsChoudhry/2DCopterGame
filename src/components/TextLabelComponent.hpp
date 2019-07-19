@@ -36,7 +36,7 @@ public:
             Game::assetManager->getFont(t_fontFamily), t_text.c_str(), m_color);
         m_texture = SDL_CreateTextureFromSurface(Game::renderer, surface);
         SDL_FreeSurface(surface);
-        SDL_QueryTexture(m_texture, NULL, NULL, &m_position.w, &m_position.h);
+        SDL_QueryTexture(m_texture, nullptr, nullptr, &m_position.w, &m_position.h);
     }
 
     void render() override { FontManager::draw(m_texture, m_position); }

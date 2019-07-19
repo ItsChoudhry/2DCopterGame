@@ -3,6 +3,7 @@
 #include "Game.hpp"
 #include "components/TileComponent.hpp"
 #include <fstream>
+#include <iostream>
 
 extern EntityManager manager;
 
