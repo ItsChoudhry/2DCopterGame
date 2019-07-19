@@ -195,7 +195,8 @@ Level1 = {
                     width = 4,
                     height = 4,
                     shouldLoop = true,
-                    textureAssetId = "projectile-texture"
+                    textureAssetId = "projectile-texture",
+                    colliderTag = "PROJECTILE"
                 }
             }
         },
@@ -231,7 +232,8 @@ Level1 = {
                     width = 4,
                     height = 4,
                     shouldLoop = true,
-                    textureAssetId = "projectile-texture"
+                    textureAssetId = "projectile-texture",
+                    colliderTag = "PROJECTILE"
                 }
             }
         },
@@ -267,7 +269,8 @@ Level1 = {
                     width = 4,
                     height = 4,
                     shouldLoop = true,
-                    textureAssetId = "projectile-texture"
+                    textureAssetId = "projectile-texture",
+                    colliderTag = "PROJECTILE"
                 }
             }
         },
@@ -303,7 +306,8 @@ Level1 = {
                     width = 4,
                     height = 4,
                     shouldLoop = true,
-                    textureAssetId = "projectile-texture"
+                    textureAssetId = "projectile-texture",
+                    colliderTag = "PROJECTILE"
                 }
             }
         },
@@ -339,7 +343,8 @@ Level1 = {
                     width = 4,
                     height = 4,
                     shouldLoop = true,
-                    textureAssetId = "projectile-texture"
+                    textureAssetId = "projectile-texture",
+                    colliderTag = "PROJECTILE"
                 }
             }
         },
@@ -375,7 +380,8 @@ Level1 = {
                     width = 4,
                     height = 4,
                     shouldLoop = true,
-                    textureAssetId = "projectile-texture"
+                    textureAssetId = "projectile-texture",
+                    colliderTag = "PROJECTILE"
                 }
             }
         },
@@ -411,7 +417,8 @@ Level1 = {
                     width = 4,
                     height = 4,
                     shouldLoop = true,
-                    textureAssetId = "projectile-texture"
+                    textureAssetId = "projectile-texture",
+                    colliderTag = "PROJECTILE"
                 }
             }
         },
@@ -445,7 +452,8 @@ Level1 = {
                     range = 500,
                     angle = 0,
 
-                    textureAssetId = "projectile-texture"
+                    textureAssetId = "projectile-texture",
+                    colliderTag = "PROJECTILE"
                 }
             }
         },
@@ -481,7 +489,8 @@ Level1 = {
                     width = 4,
                     height = 4,
                     shouldLoop = true,
-                    textureAssetId = "projectile-texture"
+                    textureAssetId = "projectile-texture",
+                    colliderTag = "PROJECTILE"
                 }
             }
         },
@@ -517,7 +526,8 @@ Level1 = {
                     width = 4,
                     height = 4,
                     shouldLoop = true,
-                    textureAssetId = "projectile-texture"
+                    textureAssetId = "projectile-texture",
+                    colliderTag = "PROJECTILE"
                 }
             }
         },
@@ -553,7 +563,8 @@ Level1 = {
                     width = 4,
                     height = 4,
                     shouldLoop = true,
-                    textureAssetId = "projectile-texture"
+                    textureAssetId = "projectile-texture",
+                    colliderTag = "PROJECTILE"
                 }
             }
         },
@@ -589,7 +600,8 @@ Level1 = {
                     width = 4,
                     height = 4,
                     shouldLoop = true,
-                    textureAssetId = "projectile-texture"
+                    textureAssetId = "projectile-texture",
+                    colliderTag = "PROJECTILE"
                 }
             }
         },
@@ -625,7 +637,8 @@ Level1 = {
                     width = 4,
                     height = 4,
                     shouldLoop = true,
-                    textureAssetId = "projectile-texture"
+                    textureAssetId = "projectile-texture",
+                    colliderTag = "PROJECTILE"
                 }
             }
         },
@@ -661,7 +674,8 @@ Level1 = {
                     width = 4,
                     height = 4,
                     shouldLoop = true,
-                    textureAssetId = "projectile-texture"
+                    textureAssetId = "projectile-texture",
+                    colliderTag = "PROJECTILE"
                 }
             }
         },
@@ -697,7 +711,8 @@ Level1 = {
                     width = 4,
                     height = 4,
                     shouldLoop = true,
-                    textureAssetId = "projectile-texture"
+                    textureAssetId = "projectile-texture",
+                    colliderTag = "PROJECTILE"
                 }
             }
         },
@@ -733,7 +748,8 @@ Level1 = {
                     width = 4,
                     height = 4,
                     shouldLoop = true,
-                    textureAssetId = "projectile-texture"
+                    textureAssetId = "projectile-texture",
+                    colliderTag = "PROJECTILE"
                 }
             }
         },
@@ -769,7 +785,8 @@ Level1 = {
                     width = 4,
                     height = 4,
                     shouldLoop = true,
-                    textureAssetId = "projectile-texture"
+                    textureAssetId = "projectile-texture",
+                    colliderTag = "PROJECTILE"
                 }
             }
         },
@@ -805,7 +822,8 @@ Level1 = {
                     width = 4,
                     height = 4,
                     shouldLoop = true,
-                    textureAssetId = "projectile-texture"
+                    textureAssetId = "projectile-texture",
+                    colliderTag = "PROJECTILE"
                 }
             }
         },

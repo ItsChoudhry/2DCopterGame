@@ -83,6 +83,8 @@ public:
             }
             if (keyCode.compare(shootKey) == 0)
             {
+                // TODO LUL I'LL PROBABBLY NEVER IMPLEMENT THIS. (Run bitch run cause
+                // you got no gun)
             }
         }
 

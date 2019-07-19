@@ -223,6 +223,8 @@ void Game::loadLevel(int t_levelNumber)
                     entity["components"]["projectileEmitter"]["shouldLoop"];
                 std::string textureAssetId =
                     entity["components"]["projectileEmitter"]["textureAssetId"];
+                std::string colliderTag =
+                    entity["components"]["projectileEmitter"]["colliderTag"];
                 Entity &projectile(manager.addEntity("projectile", PROJECTILE_LAYER));
                 projectile.addComponent<TransformComponent>(
                     parentEntityXPos + (parentEntityWidth / 2),
@@ -233,7 +235,7 @@ void Game::loadLevel(int t_levelNumber)
                     projectileSpeed, projectileAngle, projectileRange,
                     projectileShouldLoop);
                 projectile.addComponent<ColliderComponent>(
-                    "PROJECTILE", parentEntityXPos, parentEntityYPos, projectileWidth,
+                    colliderTag, parentEntityXPos, parentEntityYPos, projectileWidth,
                     projectileHeight);
             }
         }
@@ -296,7 +298,6 @@ void Game::checkCollisions()
     }
     if (collisionType == PLAYER_PROJECTILE_COLLISION)
     {
-        std::cout << "FUCK";
         processGameOver();
     }
     if (collisionType == PLAYER_LEVEL_COMPLETE_COLLISION)

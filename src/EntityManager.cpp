@@ -126,7 +126,7 @@ CollisionType EntityManager::checkCollisions() const
                             return ENEMY_PROJECTILE_COLLISION;
                         }
                         if (thisCollider->colliderTag.compare("PLAYER") == 0 &&
-                            thatCollider->colliderTag.compare("level_complete") == 0)
+                            thatCollider->colliderTag.compare("LEVEL_COMPLETE") == 0)
                         {
                             return PLAYER_LEVEL_COMPLETE_COLLISION;
                         }
