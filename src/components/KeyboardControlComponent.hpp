@@ -2,7 +2,7 @@
 
 #include "../EntityManager.hpp"
 #include "../Game.hpp"
-#include "SpirteComponent.hpp"
+#include "SpriteComponent.hpp"
 #include "TransformComponent.hpp"
 #include <SDL2/SDL.h>
 
@@ -15,7 +15,7 @@ public:
     std::string rightKey;
     std::string shootKey;
     TransformComponent *m_transform;
-    SpirteComponent *m_spirte;
+    SpriteComponent *m_spirte;
 
     KeyboardControlComponent() {}
 
@@ -48,7 +48,7 @@ public:
     void initialize() override
     {
         m_transform = owner->getComponent<TransformComponent>();
-        m_spirte = owner->getComponent<SpirteComponent>();
+        m_spirte = owner->getComponent<SpriteComponent>();
     }
 
     void update(float t_deltaTime) override

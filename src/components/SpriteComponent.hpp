@@ -9,7 +9,7 @@
 #include <map>
 #include <string>
 
-class SpirteComponent : public Component
+class SpriteComponent : public Component
 {
 private:
     TransformComponent *m_transform;
@@ -27,14 +27,20 @@ private:
 public:
     SDL_RendererFlip spriteFlip = SDL_FLIP_NONE;
 
-    SpirteComponent(std::string t_assetTextureID)
+    SpriteComponent(std::string t_assetTextureID)
     {
         m_isAnimated = false;
         m_isFixed = false;
         setTexture(t_assetTextureID);
     }
+    SpriteComponent(std::string assetTextureId, bool isFixed)
+    {
+        m_isAnimated = false;
+        m_isFixed = isFixed;
+        setTexture(assetTextureId);
+    }
 
-    SpirteComponent(std::string t_id, int t_numFrames, int t_animationSpped,
+    SpriteComponent(std::string t_id, int t_numFrames, int t_animationSpped,
                     bool t_hasDirection, bool t_isFixed)
     {
         m_isAnimated = true;

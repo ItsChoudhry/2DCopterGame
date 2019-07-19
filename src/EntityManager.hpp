@@ -18,6 +18,7 @@ public:
     Entity &addEntity(std::string t_entityName, LayerType t_layer);
     std::vector<Entity *> getEntities() const;
     std::vector<Entity *> getEntitiesByLayer(LayerType t_layer) const;
+    Entity *getEntityByName(std::string t_entityName) const;
     unsigned int getEntityCount();
     void listAllEntities() const;
     CollisionType checkCollisions() const;
