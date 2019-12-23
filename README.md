@@ -1,6 +1,8 @@
 # 2DCopterGame
 
-I made this 2d helicopter escape game to learn about game engines. The code is quite rushed and very C like.
+I made this 2d helicopter escape game to learn about game engines.
+
+![Alt text](/demo.gif?raw=true)
 
 ## dependencies
 ```
