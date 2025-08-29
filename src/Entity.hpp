@@ -5,6 +5,7 @@
 #include "EntityManager.hpp"
 #include <map>
 #include <string>
+#include <typeinfo>
 #include <vector>
 
 class EntityManager;
